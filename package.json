@@ -60,5 +60,14 @@
 		"qunitjs": "~1.11.0",
 		"requirejs": "^2.1.22",
 		"string.fromcodepoint": "^0.2.1"
-	}
+	},
+    "wilton": {
+        "excludes": [
+            "data",
+            "scripts",
+            "src",
+            "tests",
+            "Gruntfile.js"
+        ]
+    }
 }

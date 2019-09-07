@@ -1,32 +1,11 @@
-(function(root) {
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
 	'use strict';
 
-	var noop = Function.prototype;
-
-	var load = (typeof require == 'function' && !(root.define && define.amd)) ?
-		require :
-		(!root.document && root.java && root.load) || noop;
-
-	var QUnit = (function() {
-		return root.QUnit || (
-			root.addEventListener || (root.addEventListener = noop),
-			root.setTimeout || (root.setTimeout = noop),
-			root.QUnit = load('../node_modules/qunitjs/qunit/qunit.js') || root.QUnit,
-			addEventListener === noop && delete root.addEventListener,
-			root.QUnit
-		);
-	}());
-
-	var qe = load('../node_modules/qunit-extras/qunit-extras.js');
-	if (qe) {
-		qe.runInContext(root);
-	}
-
-	// The `windows1252` object to test
-	var windows1252 = root.windows1252 || (root.windows1252 = (
-		windows1252 = load('../windows-1252.js') || root.windows1252,
-		windows1252 = windows1252.windows1252 || windows1252
-	));
+	var QUnit = require("tape-compat").QUnit;
+	// The `windows1251` object to test
+	var windows1252 = require("windows-1252");
+        var test = require("tape-compat");
+        var equal = require("assert").equal;
 
 	/*--------------------------------------------------------------------------*/
 
@@ -149,10 +128,4 @@
 
 	/*--------------------------------------------------------------------------*/
 
-	// configure QUnit and call `QUnit.start()` for
-	// Narwhal, Node.js, PhantomJS, Rhino, and RingoJS
-	if (!root.document || root.phantom) {
-		QUnit.config.noglobals = true;
-		QUnit.start();
-	}
-}(typeof global == 'object' && global || this));
+require = requireOrig;});
